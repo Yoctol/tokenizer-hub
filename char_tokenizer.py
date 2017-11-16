@@ -1,4 +1,5 @@
 import re
+import purewords
 
 
 def char_tokenize(sentence):
@@ -40,5 +41,21 @@ class CharTokenizer(object):
     @classmethod
     def cut(cls, sentence):
         result = char_tokenize(sentence)
+        for char in result:
+            yield char
+
+
+class PureCharTokenizer(object):
+
+    def __init__(self):
+        self.purechartokenizer = purewords.PureWords(
+            tokenizer=CharTokenizer(),
+        )
+
+    def lcut(self, sentence):
+        return self.purechartokenizer.clean_sentence(sentence).split(' ')
+
+    def cut(self, sentence):
+        result = self.lcut(sentence=sentence)
         for char in result:
             yield char
