@@ -1,9 +1,11 @@
+from typing import Dict, List
+
 from jieba import Tokenizer, strdecode
 
 
 class CustomJiebaTokenizer(Tokenizer):
 
-    def add_word_idempotent(self, word):
+    def add_word_idempotent(self, word: str) -> Dict[str, int]:
         word = strdecode(word)
         freq = 1
         self.FREQ[word] = freq
@@ -18,7 +20,11 @@ class CustomJiebaTokenizer(Tokenizer):
                 existed_token[wfrag] = self.FREQ[wfrag]
         return existed_token
 
-    def del_word_idempotent(self, word, existed_tokens):
+    def del_word_idempotent(
+            self,
+            word: str,
+            existed_tokens: Dict[str, int],
+        ) -> None:
         word = strdecode(word)
         self.total -= self.FREQ[word]
         del self.FREQ[word]
@@ -28,7 +34,11 @@ class CustomJiebaTokenizer(Tokenizer):
             if wfrag not in existed_tokens and self.FREQ[wfrag] == 0:
                 del self.FREQ[wfrag]
 
-    def lcut(self, sentence, extra_words=None):
+    def lcut(
+            self,
+            sentence: str,
+            extra_words: List[str] = None,
+        ) -> List[str]:
         self.check_initialized()
         if extra_words is None:
             extra_words = []
