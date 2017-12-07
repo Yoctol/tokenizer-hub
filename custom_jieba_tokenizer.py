@@ -5,7 +5,7 @@ from jieba import Tokenizer, strdecode
 from .base_tokenizer import BaseTokenizer
 
 
-class CustomJiebaTokenizer(BaseTokenizer, Tokenizer):
+class CustomJiebaTokenizer(Tokenizer, BaseTokenizer):
 
     def add_word_idempotent(
             self,
