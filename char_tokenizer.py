@@ -1,8 +1,12 @@
+from typing import List
 import re
+
 import purewords
 
+from .base_tokenizer import BaseTokenizer
 
-def char_tokenize(sentence):
+
+def char_tokenize(sentence: str):
     if not isinstance(sentence, str):
         raise TypeError(
             'input sentence should be a string, now is {}'.format(type(sentence)))
@@ -32,30 +36,42 @@ def char_tokenize(sentence):
     return tokenized_sentence
 
 
-class CharTokenizer(object):
+class CharTokenizer(BaseTokenizer):
 
     @classmethod
-    def lcut(cls, sentence):
+    def lcut(
+            cls,
+            sentence: str,
+        ):
         return char_tokenize(sentence)
 
     @classmethod
-    def cut(cls, sentence):
+    def cut(
+            cls,
+            sentence: str,
+        ):
         result = char_tokenize(sentence)
         for char in result:
             yield char
 
 
-class PureCharTokenizer(object):
+class PureCharTokenizer(BaseTokenizer):
 
     def __init__(self):
         self.purechartokenizer = purewords.PureWords(
             tokenizer=CharTokenizer(),
         )
 
-    def lcut(self, sentence):
+    def lcut(
+            self,
+            sentence: List[str],
+        ):
         return self.purechartokenizer.clean_sentence(sentence).split(' ')
 
-    def cut(self, sentence):
+    def cut(
+            self,
+            sentence: str,
+        ):
         result = self.lcut(sentence=sentence)
         for char in result:
             yield char

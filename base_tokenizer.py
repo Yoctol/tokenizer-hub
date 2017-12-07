@@ -1,4 +1,7 @@
 class BaseTokenizer(object):
 
-    def lcut(self, sentence: str):
+    def lcut(
+            self,
+            sentence: str,
+        ):
         raise NotImplementedError

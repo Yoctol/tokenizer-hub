@@ -1,9 +1,17 @@
+from typing import List
+
 from jieba import Tokenizer
 
+from .base_tokenizer import BaseTokenizer
 
-class JiebaTokenizer(object):
 
-    def __init__(self, dict_path=None, freq_words=None):
+class JiebaTokenizer(BaseTokenizer):
+
+    def __init__(
+            self,
+            dict_path: str = None,
+            freq_words: List[str] = None,
+        ):
         self.tokenizer = Tokenizer()
         if dict_path is not None:
             self.tokenizer.load_userdict(dict_path)
@@ -11,8 +19,16 @@ class JiebaTokenizer(object):
             for f_word in freq_words:
                 self.tokenizer.suggest_freq(f_word, True)
 
-    def lcut(self, sentence, use_hmm=True):
+    def lcut(
+            self,
+            sentence: str,
+            use_hmm: bool = True,
+        ) -> List[str]:
         return self.tokenizer.lcut(sentence, HMM=use_hmm)
 
-    def cut(self, sentence, use_hmm=True):
+    def cut(
+            self,
+            sentence: str,
+            use_hmm: bool = True,
+        ) -> str:
         return self.tokenizer.cut(sentence, HMM=use_hmm)

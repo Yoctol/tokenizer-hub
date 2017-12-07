@@ -2,10 +2,15 @@ from typing import Dict, List
 
 from jieba import Tokenizer, strdecode
 
+from .base_tokenizer import BaseTokenizer
 
-class CustomJiebaTokenizer(Tokenizer):
 
-    def add_word_idempotent(self, word: str) -> Dict[str, int]:
+class CustomJiebaTokenizer(BaseTokenizer, Tokenizer):
+
+    def add_word_idempotent(
+            self,
+            word: str,
+        ) -> Dict[str, int]:
         word = strdecode(word)
         freq = 1
         self.FREQ[word] = freq
