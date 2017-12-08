@@ -64,14 +64,14 @@ class PureCharTokenizer(BaseTokenizer):
 
     def lcut(
             self,
-            sentence: List[str],
-        ):
+            sentence: str,
+        ) -> List[str]:
         return self.purechartokenizer.clean_sentence(sentence).split(' ')
 
     def cut(
             self,
             sentence: str,
-        ):
+        ) -> str:
         result = self.lcut(sentence=sentence)
         for char in result:
             yield char
