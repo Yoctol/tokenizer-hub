@@ -1,3 +1,5 @@
+import nltk
+nltk.download('punkt')  # noqa
 from nltk.tokenize import WordPunctTokenizer, word_tokenize
 
 from .base_tokenizer import BaseTokenizer
