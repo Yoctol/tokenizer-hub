@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from jieba import Tokenizer, strdecode
+from .parallel_jieba_tokenizer import Tokenizer, strdecode
 
 from .base_tokenizer import BaseTokenizer
 
@@ -56,3 +56,6 @@ class CustomJiebaTokenizer(Tokenizer, BaseTokenizer):
         for word in extra_words:
             self.del_word_idempotent(word, existed_tokens)
         return result
+
+    def lcut_sentences(self, sentences, num_jobs=8, use_hmm=True):
+        return super().lcut_senteces(

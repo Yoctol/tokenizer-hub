@@ -1,6 +1,6 @@
 from typing import List
 
-from jieba import Tokenizer
+from .ParallelJiebaTokenizer import ParallelJiebaTokenizer
 
 from .base_tokenizer import BaseTokenizer
 
@@ -12,7 +12,7 @@ class JiebaTokenizer(BaseTokenizer):
             dict_path: str = None,
             freq_words: List[str] = None,
         ):
-        self.tokenizer = Tokenizer()
+        self.tokenizer = ParallelJiebaTokenizer()
         if dict_path is not None:
             self.tokenizer.load_userdict(dict_path)
         if freq_words is not None:
@@ -25,6 +25,14 @@ class JiebaTokenizer(BaseTokenizer):
             use_hmm: bool = True,
         ) -> List[str]:
         return self.tokenizer.lcut(sentence, HMM=use_hmm)
+
+    def lcut_sentences(
+            self,
+            sentences: List[str],
+            num_jobs: int = 8,
+            use_hmm: bool = True,
+        ) -> List(str):
+        return self.tokenizer.lcut_sentences(sentences, num_jobs, use_hmm)
 
     def cut(
             self,
