@@ -1,5 +1,6 @@
 from .purewords_tokenizer import PureWordsTokenizer  # noqa
 from .jieba_tokenizer import JiebaTokenizer  # noqa
+from .parallel_jieba_tokenizer import ParallelJiebaTokenizer # noqa
 from .chinese_char_tokenizer import (
     ChineseCharTokenizer,
     PureChineseCharTokenizer,

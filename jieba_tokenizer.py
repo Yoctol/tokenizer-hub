@@ -1,8 +1,8 @@
 from typing import List
 
-from .ParallelJiebaTokenizer import ParallelJiebaTokenizer
-
+from .parallel_jieba_tokenizer import ParallelJiebaTokenizer
 from .base_tokenizer import BaseTokenizer
+import functools
 
 
 class JiebaTokenizer(BaseTokenizer):
@@ -24,19 +24,24 @@ class JiebaTokenizer(BaseTokenizer):
             sentence: str,
             use_hmm: bool = True,
         ) -> List[str]:
-        return self.tokenizer.lcut(sentence, HMM=use_hmm)
+        return self.tokenizer.lcut(sentence, cut_all=False, HMM=use_hmm)
 
     def lcut_sentences(
             self,
             sentences: List[str],
             num_jobs: int = 8,
             use_hmm: bool = True,
-        ) -> List(str):
-        return self.tokenizer.lcut_sentences(sentences, num_jobs, use_hmm)
-
-    def cut(
-            self,
-            sentence: str,
-            use_hmm: bool = True,
-        ) -> str:
-        return self.tokenizer.cut(sentence, HMM=use_hmm)
+        ) -> List[List[str]]:
+        from multiprocessing import cpu_count, Pool
+        if num_jobs is None:
+            num_jobs = cpu_count
+        with Pool(num_jobs) as pool:
+            results = pool.map(
+                functools.partial(
+                    self.tokenizer.lcut,
+                    cut_all=False,
+                    HMM=use_hmm,
+                ),
+                sentences,
+            )
+        return results

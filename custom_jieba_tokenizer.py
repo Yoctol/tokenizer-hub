@@ -1,11 +1,11 @@
 from typing import Dict, List
 
-from .parallel_jieba_tokenizer import Tokenizer, strdecode
+from .parallel_jieba_tokenizer import ParallelJiebaTokenizer, strdecode
 
 from .base_tokenizer import BaseTokenizer
 
 
-class CustomJiebaTokenizer(Tokenizer, BaseTokenizer):
+class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
 
     def add_word_idempotent(
             self,
@@ -58,4 +58,4 @@ class CustomJiebaTokenizer(Tokenizer, BaseTokenizer):
         return result
 
     def lcut_sentences(self, sentences, num_jobs=8, use_hmm=True):
-        return super().lcut_senteces(
+        return super().lcut_senteces(sentences, num_jobs, use_hmm)
