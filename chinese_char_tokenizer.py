@@ -1,5 +1,7 @@
 from typing import List
+import functools
 import re
+import string
 
 import purewords
 
@@ -10,28 +12,22 @@ class ChineseCharTokenizer(BaseTokenizer):
 
     def __init__(self):
         self.prog = re.compile(
-            "[0-9a-zA-Z\-\.\(\)\{\}\[\]#@!~,\<\>\+\=\*\^\|\?\_\^%\$:;]+",
+            "[{}]+".format(string.printable),
         )
-        self.whitespace_prog = re.compile("\s+")
 
     def lcut(
             self,
             sentence: str,
         ):
-        records = self.prog.findall(sentence)
-        sentence = self.whitespace_prog.sub(" ", sentence)
-        sub_sentence = self.prog.sub("X", sentence)
-        segment_list = sub_sentence.split(' ')
-        tokenized_sentence = []
-        for segment in segment_list:
-            tokenized_sentence.append(list(segment))
-        tokenized_sentence = sum(tokenized_sentence, [])
-        r_idx = 0
-        for idx, token in enumerate(tokenized_sentence):
-            if token == "X":
-                tokenized_sentence[idx] = records[r_idx]
-                r_idx += 1
-        return tokenized_sentence
+        not_chinese_elements = self.prog.findall(sentence)
+        pure_chinese_sentence = self.prog.sub("X", sentence)
+        tokens = list(pure_chinese_sentence)
+        index = 0
+        for ti, token in enumerate(tokens):
+            if token == 'X':
+                tokens[ti] = not_chinese_elements[index]
+                index += 1
+        return tokens
 
     def cut(
             self,
@@ -40,6 +36,23 @@ class ChineseCharTokenizer(BaseTokenizer):
         result = self.lcut(sentence)
         for char in result:
             yield char
+
+    def lcut_sentences(
+            self,
+            sentences: List[str],
+            num_jobs: int = None,
+        ):
+        from multiprocessing import cpu_count, Pool
+        if num_jobs is None:
+            num_jobs = cpu_count()
+        with Pool(num_jobs) as pool:
+            results = pool.map(
+                functools.partial(
+                    self.lcut,
+                ),
+                sentences,
+            )
+        return results
 
 
 class PureChineseCharTokenizer(BaseTokenizer):
