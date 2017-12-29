@@ -42,6 +42,8 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
     def lcut(
             self,
             sentence: str,
+            cut_all: bool = False,
+            HMM: bool = True,
             extra_words: List[str] = None,
         ) -> List[str]:
         self.check_initialized()
@@ -52,21 +54,29 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
         for word in extra_words:
             _existed_tokens = self.add_word_idempotent(word)
             existed_tokens = {**existed_tokens, **_existed_tokens}
-        result = super().lcut(sentence, cut_all=False, HMM=True)
+        result = super().lcut(sentence, cut_all=cut_all, HMM=HMM)
         for word in extra_words:
             self.del_word_idempotent(word, existed_tokens)
         return result
 
-    def lcut_sentences(self, sentences, num_jobs=8, use_hmm=True):
+    def lcut_sentences(
+            self,
+            sentences: List[str],
+            num_jobs: int = None,
+            extra_words: List[str] = None,
+            HMM: bool = True,
+            cut_all: bool = False,
+        ):
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
-            num_jobs = cpu_count
+            num_jobs = cpu_count()
         with Pool(num_jobs) as pool:
             results = pool.map(
                 functools.partial(
-                    self.tokenizer.lcut,
-                    cut_all=False,
-                    HMM=use_hmm,
+                    self.lcut,
+                    extra_words=extra_words,
+                    cut_all=cut_all,
+                    HMM=HMM,
                 ),
                 sentences,
             )
