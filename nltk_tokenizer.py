@@ -19,7 +19,6 @@ class NltkTokenizer(BaseTokenizer):
             sentence,
             punct=True,
         ):
-        sentence = sentence.lower()
         if punct is True:
             return(self.WPtokenizer.tokenize(sentence))
         else:

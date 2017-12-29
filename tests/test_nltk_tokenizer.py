@@ -8,27 +8,27 @@ class test_NltkTokenizer(TestCase):
     def test_NltkTokenizer(self):
         tokenizer = NltkTokenizer()
         self.assertEqual(
-            ['how', "'s", 'it', 'going', 'today', ',', 'mr.smith', '?', ],
+            ['How', "'s", 'it', 'going', 'today', ',', 'Mr.Smith', '?', ],
             tokenizer.lcut("How's it going today, Mr.Smith?", punct=False),
         )
 
     def test_NltkTokenizer_punct(self):
         tokenizer = NltkTokenizer()
         self.assertEqual(
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mr', '.', 'smith', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mr', '.', 'Smith', '?', ],
             tokenizer.lcut("How's it going today, Mr.Smith?", punct=True),
         )
 
     def test_NltkTokenizer_parallel_lcut(self):
         tokenizer = NltkTokenizer()
         human_tokened_sentences = [
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mr', '.', 'smith', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mr', '.', 'john', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mrs', '.', 'watson', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mrs', '.', 'stone', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'dr', '.', 'smith', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'dr', '.', 'john', '?', ],
-            ['how', "'", 's', 'it', 'going', 'today', ',', 'mrs', '.', 'winslet', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mr', '.', 'Smith', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mr', '.', 'John', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mrs', '.', 'Watson', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mrs', '.', 'Stone', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Dr', '.', 'Smith', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Dr', '.', 'John', '?', ],
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mrs', '.', 'Winslet', '?', ],
         ]
         sentences_to_token = [
             "How's it going today, Mr.Smith?",
