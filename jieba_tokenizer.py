@@ -23,6 +23,7 @@ class JiebaTokenizer(BaseTokenizer):
             self,
             sentence: str,
             use_hmm: bool = True,
+            **kwargs
         ) -> List[str]:
         return self.tokenizer.lcut(sentence, cut_all=False, HMM=use_hmm)
 

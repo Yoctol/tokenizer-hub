@@ -45,6 +45,7 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
             cut_all: bool = False,
             HMM: bool = True,
             extra_words: List[str] = None,
+            **kwargs
         ) -> List[str]:
         self.check_initialized()
         if extra_words is None:
