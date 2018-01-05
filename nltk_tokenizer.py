@@ -18,7 +18,7 @@ class NltkTokenizer(BaseTokenizer):
             self,
             sentence,
             punct=True,
-            **kwargs
+            **kwargs  # noqa
         ):
         if punct is True:
             return(self.WPtokenizer.tokenize(sentence))

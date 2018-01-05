@@ -24,7 +24,7 @@ class NltkJiebaTokenizer(BaseTokenizer):
             cut_all: bool = False,
             HMM: bool = True,
             num_jobs: int = 4,
-            **kwargs
+            **kwargs  # noqa
         ) -> List[str]:
         tokens = self.nltk_tokenizer.lcut(
             sentence=sentence,

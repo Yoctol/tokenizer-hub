@@ -10,7 +10,7 @@ class PureWordsTokenizer(BaseTokenizer):
     def lcut(
             self,
             sentence: str,
-            **kwargs
+            **kwargs  # noqa
         ) -> List[str]:
         clean_sentence = purewords.clean_sentence(sentence)
         if clean_sentence == '':

@@ -18,7 +18,7 @@ class ChineseCharTokenizer(BaseTokenizer):
     def lcut(
             self,
             sentence: str,
-            **kwargs
+            **kwargs  # noqa
         ):
         not_chinese_elements = self.prog.findall(sentence)
         pure_chinese_sentence = self.prog.sub("X", sentence)
