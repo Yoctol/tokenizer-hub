@@ -53,8 +53,9 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
 
         existed_tokens = {}
         for word in extra_words:
-            _existed_tokens = self.add_word_idempotent(word)
-            existed_tokens = {**existed_tokens, **_existed_tokens}
+            existed_tokens.update(self.add_word_idempotent(word))
+            # _existed_tokens = self.add_word_idempotent(word)
+            # existed_tokens = {**existed_tokens, **_existed_tokens}
         result = super().lcut(sentence, cut_all=cut_all, HMM=HMM)
         for word in extra_words:
             self.del_word_idempotent(word, existed_tokens)
