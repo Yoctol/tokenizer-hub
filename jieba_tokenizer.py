@@ -22,16 +22,22 @@ class JiebaTokenizer(BaseTokenizer):
     def lcut(
             self,
             sentence: str,
-            use_hmm: bool = True,
+            cut_all: bool = False,
+            HMM: bool = True,
             **kwargs  # noqa
         ) -> List[str]:
-        return self.tokenizer.lcut(sentence, cut_all=False, HMM=use_hmm)
+        return self.tokenizer.lcut(
+            sentence,
+            cut_all=cut_all,
+            HMM=HMM,
+        )
 
     def lcut_sentences(
             self,
             sentences: List[str],
             num_jobs: int = 8,
-            use_hmm: bool = True,
+            cut_all: bool = False,
+            HMM: bool = True,
         ) -> List[List[str]]:
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
@@ -40,8 +46,8 @@ class JiebaTokenizer(BaseTokenizer):
             results = pool.map(
                 functools.partial(
                     self.tokenizer.lcut,
-                    cut_all=False,
-                    HMM=use_hmm,
+                    cut_all=cut_all,
+                    HMM=HMM,
                 ),
                 sentences,
             )

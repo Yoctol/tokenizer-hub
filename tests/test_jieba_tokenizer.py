@@ -38,6 +38,6 @@ class JiebaTokenizerTestCase(TestCase):
         tokenized_sentences = tokenizer.lcut_sentences(
             origin_sentences,
             num_jobs=8,
-            use_hmm=False,
+            HMM=False,
         )
         self.assertListEqual(human_tokened_sentences, tokenized_sentences)
