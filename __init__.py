@@ -1,3 +1,4 @@
+from os.join import dirname, join, abspath
 from .purewords_tokenizer import PureWordsTokenizer  # noqa
 from .jieba_tokenizer import JiebaTokenizer  # noqa
 from .parallel_jieba_tokenizer import ParallelJiebaTokenizer # noqa
@@ -9,3 +10,5 @@ from .custom_jieba_tokenizer import CustomJiebaTokenizer  # noqa
 from .nltk_tokenizer import NltkTokenizer  # noqa
 from .nltk_custom_jieba_tokenizer import NltkCustomJiebaTokenizer  # noqa
 from .nltk_jieba_tokenizer import NltkJiebaTokenizer  # noqa
+
+DICTIONARY_DIR = join(dirname(abspath(__file__)), 'dictionary/')
