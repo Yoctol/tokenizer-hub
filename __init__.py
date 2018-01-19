@@ -8,3 +8,4 @@ from .chinese_char_tokenizer import (
 from .custom_jieba_tokenizer import CustomJiebaTokenizer  # noqa
 from .nltk_tokenizer import NltkTokenizer  # noqa
 from .nltk_custom_jieba_tokenizer import NltkCustomJiebaTokenizer  # noqa
+from .nltk_jieba_tokenizer import NltkJiebaTokenizer  # noqa
