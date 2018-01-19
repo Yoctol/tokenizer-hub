@@ -5,10 +5,8 @@ from .. import NltkJiebaTokenizer
 
 class NltkJiebaTokenizerTestCase(TestCase):
 
-    def setUp(self):
-        self.tokenizer = NltkJiebaTokenizer()
-
     def test_lcut(self):
+        tokenizer = NltkJiebaTokenizer()
         test_cases = [
             ('我想喝珍珠奶茶半糖大杯',
              ['我', '想', '喝', '珍珠奶茶', '半糖', '大杯']),
@@ -24,5 +22,29 @@ class NltkJiebaTokenizerTestCase(TestCase):
             with self.subTest(test_case=test_case):
                 self.assertEqual(
                     test_case[1],
-                    self.tokenizer.lcut(sentence=test_case[0]),
+                    tokenizer.lcut(sentence=test_case[0]),
                 )
+
+    def test_lcut_punct_false(self):
+        tokenizer = NltkJiebaTokenizer()
+        self.assertEqual(
+            ['How', "'s", 'it', 'going', 'today', ',', 'Mr.Smith', '?', ],
+            tokenizer.lcut("How's it going today, Mr.Smith?", punct=False),
+        )
+        tokenizer = NltkJiebaTokenizer(punct=False)
+        self.assertEqual(
+            ['How', "'s", 'it', 'going', 'today', ',', 'Mr.Smith', '?', ],
+            tokenizer.lcut("How's it going today, Mr.Smith?"),
+        )
+
+    def test_lcut_HMM_false(self):
+        tokenizer = NltkJiebaTokenizer()
+        self.assertEqual(
+            ['我', '想', '喝', '珍珠奶茶', '半', '糖', '大', '杯'],
+            tokenizer.lcut('我想喝珍珠奶茶半糖大杯', HMM=False),
+        )
+        tokenizer = NltkJiebaTokenizer(HMM=False)
+        self.assertEqual(
+            ['我', '想', '喝', '珍珠奶茶', '半', '糖', '大', '杯'],
+            tokenizer.lcut('我想喝珍珠奶茶半糖大杯'),
+        )

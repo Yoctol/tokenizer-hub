@@ -11,8 +11,12 @@ class JiebaTokenizer(BaseTokenizer):
             self,
             dict_path: str = None,
             freq_words: List[str] = None,
+            cut_all: bool = None,
+            HMM: bool = None,
         ):
         self.tokenizer = ParallelJiebaTokenizer()
+        self.cut_all = cut_all
+        self.HMM = HMM
         if dict_path is not None:
             self.tokenizer.load_userdict(dict_path)
         if freq_words is not None:
@@ -26,6 +30,10 @@ class JiebaTokenizer(BaseTokenizer):
             HMM: bool = True,
             **kwargs  # noqa
         ) -> List[str]:
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         return self.tokenizer.lcut(
             sentence,
             cut_all=cut_all,
@@ -42,6 +50,10 @@ class JiebaTokenizer(BaseTokenizer):
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
             num_jobs = cpu_count
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         with Pool(num_jobs) as pool:
             results = pool.map(
                 functools.partial(

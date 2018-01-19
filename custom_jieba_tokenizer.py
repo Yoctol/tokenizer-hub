@@ -7,6 +7,15 @@ import functools
 
 class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
 
+    def __init__(
+            self,
+            cut_all: bool = None,
+            HMM: bool = None,
+        ):
+        self.cut_all = cut_all
+        self.HMM = HMM
+        super(CustomJiebaTokenizer, self).__init__()
+
     def add_word_idempotent(
             self,
             word: str,
@@ -50,7 +59,10 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
         self.check_initialized()
         if extra_words is None:
             extra_words = []
-
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         existed_tokens = {}
         for word in extra_words:
             existed_tokens.update(self.add_word_idempotent(word))
@@ -72,6 +84,10 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
             num_jobs = cpu_count()
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         with Pool(num_jobs) as pool:
             results = pool.map(
                 functools.partial(

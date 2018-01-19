@@ -11,10 +11,18 @@ from .custom_jieba_tokenizer import CustomJiebaTokenizer
 
 class NltkCustomJiebaTokenizer(BaseTokenizer):
 
-    def __init__(self):
+    def __init__(
+            self,
+            punct: bool = None,
+            cut_all: bool = None,
+            HMM: bool = None,
+        ):
         self.nltk_tokenizer = NltkTokenizer()
         self.custom_jieba_tokenizer = CustomJiebaTokenizer()
         self.prog = re.compile('[{}]+'.format(string.printable))
+        self.punct = punct
+        self.cut_all = cut_all
+        self.HMM = HMM
 
     def lcut(
             self,
@@ -26,6 +34,12 @@ class NltkCustomJiebaTokenizer(BaseTokenizer):
             num_jobs: int = 4,
             **kwargs  # noqa
         ) -> List[str]:
+        if self.punct is not None:
+            punct = self.punct
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         tokens = self.nltk_tokenizer.lcut(
             sentence=sentence,
             punct=punct,
@@ -58,6 +72,12 @@ class NltkCustomJiebaTokenizer(BaseTokenizer):
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
             num_jobs = cpu_count()
+        if self.punct is not None:
+            punct = self.punct
+        if self.cut_all is not None:
+            cut_all = self.cut_all
+        if self.HMM is not None:
+            HMM = self.HMM
         with Pool(num_jobs) as pool:
             results = pool.map(
                 functools.partial(

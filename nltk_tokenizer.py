@@ -11,8 +11,10 @@ class NltkTokenizer(BaseTokenizer):
 
     def __init__(
             self,
+            punct: bool = None,
         ):
         self.WPtokenizer = WordPunctTokenizer()
+        self.punct = punct
 
     def lcut(
             self,
@@ -20,6 +22,8 @@ class NltkTokenizer(BaseTokenizer):
             punct=True,
             **kwargs  # noqa
         ):
+        if self.punct is not None:
+            punct = self.punct
         if punct is True:
             return(self.WPtokenizer.tokenize(sentence))
         else:
@@ -31,10 +35,11 @@ class NltkTokenizer(BaseTokenizer):
             num_jobs: int = 8,
             punct: bool = True,
         ) -> List[List[str]]:
-
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
             num_jobs = cpu_count()
+        if self.punct is not None:
+            punct = self.punct
         with Pool(num_jobs) as pool:
             results = pool.map(
                 functools.partial(

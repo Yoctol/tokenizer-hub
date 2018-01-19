@@ -11,12 +11,22 @@ class test_NltkTokenizer(TestCase):
             ['How', "'s", 'it', 'going', 'today', ',', 'Mr.Smith', '?', ],
             tokenizer.lcut("How's it going today, Mr.Smith?", punct=False),
         )
+        tokenizer = NltkTokenizer(punct=False)
+        self.assertEqual(
+            ['How', "'s", 'it', 'going', 'today', ',', 'Mr.Smith', '?', ],
+            tokenizer.lcut("How's it going today, Mr.Smith?"),
+        )
 
     def test_NltkTokenizer_punct(self):
         tokenizer = NltkTokenizer()
         self.assertEqual(
             ['How', "'", 's', 'it', 'going', 'today', ',', 'Mr', '.', 'Smith', '?', ],
             tokenizer.lcut("How's it going today, Mr.Smith?", punct=True),
+        )
+        tokenizer = NltkTokenizer(punct=True)
+        self.assertEqual(
+            ['How', "'", 's', 'it', 'going', 'today', ',', 'Mr', '.', 'Smith', '?', ],
+            tokenizer.lcut("How's it going today, Mr.Smith?"),
         )
 
     def test_NltkTokenizer_parallel_lcut(self):
@@ -43,5 +53,11 @@ class test_NltkTokenizer(TestCase):
             sentences_to_token,
             num_jobs=4,
             punct=True,
+        )
+        self.assertListEqual(human_tokened_sentences, tokenized_sentences)
+        tokenizer = NltkTokenizer(punct=True)
+        tokenized_sentences = tokenizer.lcut_sentences(
+            sentences_to_token,
+            num_jobs=4,
         )
         self.assertListEqual(human_tokened_sentences, tokenized_sentences)
