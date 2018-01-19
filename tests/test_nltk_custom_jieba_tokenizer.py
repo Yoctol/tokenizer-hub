@@ -1,12 +1,12 @@
 from unittest import TestCase
 
-from .. import NltkJiebaTokenizer
+from .. import NltkCustomJiebaTokenizer
 
 
-class NltkJiebaTokenizerTestCase(TestCase):
+class NltkCustomJiebaTokenizerTestCase(TestCase):
 
     def setUp(self):
-        self.tokenizer = NltkJiebaTokenizer()
+        self.tokenizer = NltkCustomJiebaTokenizer()
 
     def test_lcut(self):
         test_cases = [

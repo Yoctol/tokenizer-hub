@@ -9,7 +9,7 @@ from .nltk_tokenizer import NltkTokenizer
 from .custom_jieba_tokenizer import CustomJiebaTokenizer
 
 
-class NltkJiebaTokenizer(BaseTokenizer):
+class NltkCustomJiebaTokenizer(BaseTokenizer):
 
     def __init__(self):
         self.nltk_tokenizer = NltkTokenizer()
