@@ -12,8 +12,6 @@ class PureWordsTokenizer(BaseTokenizer):
             self,
             dict_path: str = None,
             freq_words: List[str] = None,
-            max_len: int = 200,
-            min_len: int = 1,
         ):
         self.tokenizer = ParallelJiebaTokenizer()
         if dict_path is not None:
@@ -29,8 +27,6 @@ class PureWordsTokenizer(BaseTokenizer):
         self._add_words(words=self.specific_tokens)
         self.purewords_tokenizer = purewords.PureWords(
             tokenizer=self.tokenizer,
-            max_len=max_len,
-            min_len=min_len,
         )
 
     def _add_words(
