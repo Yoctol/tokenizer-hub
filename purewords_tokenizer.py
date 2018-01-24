@@ -22,9 +22,11 @@ class PureWordsTokenizer(BaseTokenizer):
             '_url_',
             '_num_',
             '_phone_',
-            '_time_'
+            '_time_',
         ]
-        self._add_words(words=self.specific_tokens)
+        self._add_words(
+            words=self.specific_tokens,
+        )
         self.purewords_tokenizer = purewords.PureWords(
             tokenizer=self.tokenizer,
         )
