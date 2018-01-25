@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 import purewords
@@ -30,6 +31,8 @@ class PureWordsTokenizer(BaseTokenizer):
         self.purewords_tokenizer = purewords.PureWords(
             tokenizer=self.tokenizer,
         )
+        self.sub_prog_1 = re.compile(r"(?<=\s)_(\s)")
+        self.sub_prog_2 = re.compile(r"\s+")
 
     def _add_words(
             self,
@@ -47,12 +50,14 @@ class PureWordsTokenizer(BaseTokenizer):
             **kwargs  # noqa
         ) -> List[str]:
         clean_sentence = self.purewords_tokenizer.clean_sentence(sentence)
+        clean_sentence = ' ' + clean_sentence + ' '
+        clean_sentence = self.sub_prog_1.sub(" ", clean_sentence)
+        clean_sentence = self.sub_prog_2.sub(" ", clean_sentence)
+        clean_sentence = clean_sentence.strip()
         if clean_sentence == '':
             return []
         else:
             tokens = clean_sentence.split(' ')
-            while '_' in tokens:
-                tokens.remove('_')
             return tokens
 
     def lcut_sentences(
