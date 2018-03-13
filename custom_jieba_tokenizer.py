@@ -11,10 +11,13 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
             self,
             cut_all: bool = None,
             HMM: bool = None,
+            userdict_path: str = None,
         ):
+        super(CustomJiebaTokenizer, self).__init__()
         self.cut_all = cut_all
         self.HMM = HMM
-        super(CustomJiebaTokenizer, self).__init__()
+        if userdict_path is not None:
+            super(CustomJiebaTokenizer, self).load_userdict(userdict_path)
 
     def add_word_idempotent(
             self,
@@ -53,25 +56,13 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
             sentence: str,
             cut_all: bool = False,
             HMM: bool = True,
-            extra_words: List[str] = None,
             **kwargs  # noqa
         ) -> List[str]:
-        self.check_initialized()
-        if extra_words is None:
-            extra_words = []
         if self.cut_all is not None:
             cut_all = self.cut_all
         if self.HMM is not None:
             HMM = self.HMM
-        existed_tokens = {}
-        for word in extra_words:
-            existed_tokens.update(self.add_word_idempotent(word))
-            # _existed_tokens = self.add_word_idempotent(word)
-            # existed_tokens = {**existed_tokens, **_existed_tokens}
-        result = super().lcut(sentence, cut_all=cut_all, HMM=HMM)
-        for word in extra_words:
-            self.del_word_idempotent(word, existed_tokens)
-        return result
+        return super().lcut(sentence, cut_all=cut_all, HMM=HMM)
 
     def lcut_sentences(
             self,
@@ -80,7 +71,7 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
             extra_words: List[str] = None,
             HMM: bool = True,
             cut_all: bool = False,
-        ):
+        )-> List[List[str]]:
         from multiprocessing import cpu_count, Pool
         if num_jobs is None:
             num_jobs = cpu_count()

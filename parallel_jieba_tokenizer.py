@@ -6,7 +6,8 @@ import threading
 class ParallelJiebaTokenizer(Tokenizer):
 
     def __init__(self, dictionary=None):
-        super().__init__(dictionary)
+        super().__init__(dictionary=dictionary)
+        super().initialize(dictionary=dictionary)
 
     def strdecode(self, sentence):
         return strdecode(sentence)
