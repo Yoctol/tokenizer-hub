@@ -54,15 +54,19 @@ class CustomJiebaTokenizer(ParallelJiebaTokenizer, BaseTokenizer):
     def lcut(
             self,
             sentence: str,
-            cut_all: bool = False,
-            HMM: bool = True,
+            cut_all: bool = None,
+            HMM: bool = None,
             **kwargs  # noqa
         ) -> List[str]:
-        if self.cut_all is not None:
-            cut_all = self.cut_all
-        if self.HMM is not None:
-            HMM = self.HMM
-        return super().lcut(sentence, cut_all=cut_all, HMM=HMM)
+        if cut_all is not None:
+            self.cut_all = cut_all
+        if HMM is not None:
+            self.HMM = HMM
+        return super().lcut(
+            sentence,
+            cut_all=self.cut_all,
+            HMM=self.HMM,
+        )
 
     def lcut_sentences(
             self,

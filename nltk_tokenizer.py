@@ -19,12 +19,12 @@ class NltkTokenizer(BaseTokenizer):
     def lcut(
             self,
             sentence,
-            punct=True,
+            punct: bool = None,
             **kwargs  # noqa
         ):
-        if self.punct is not None:
-            punct = self.punct
-        if punct is True:
+        if punct is not None:
+            self.punct = punct
+        if self.punct is True:
             return(self.WPtokenizer.tokenize(sentence))
         else:
             return(word_tokenize(sentence))

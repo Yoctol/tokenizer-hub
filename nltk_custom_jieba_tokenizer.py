@@ -16,33 +16,41 @@ class NltkCustomJiebaTokenizer(BaseTokenizer):
             punct: bool = None,
             cut_all: bool = None,
             HMM: bool = None,
-        ):
-        self.nltk_tokenizer = NltkTokenizer()
-        self.custom_jieba_tokenizer = CustomJiebaTokenizer()
-        self.prog = re.compile('[{}]+'.format(string.printable))
+            userdict_path: str = None,
+        ) -> None:
         self.punct = punct
         self.cut_all = cut_all
         self.HMM = HMM
+        self.userdict_path = userdict_path
+
+        self.nltk_tokenizer = NltkTokenizer(
+            punct=self.punct,
+        )
+        self.custom_jieba_tokenizer = CustomJiebaTokenizer(
+            cut_all=self.cut_all,
+            HMM=self.HMM,
+            userdict_path=self.userdict_path,
+        )
+        self.prog = re.compile('[{}]+'.format(re.escape(string.printable)))
 
     def lcut(
             self,
             sentence: str,
-            punct: bool = True,
-            extra_words: List[str] = None,
-            cut_all: bool = False,
-            HMM: bool = True,
+            punct: bool = None,
+            cut_all: bool = None,
+            HMM: bool = None,
             num_jobs: int = 4,
             **kwargs  # noqa
         ) -> List[str]:
-        if self.punct is not None:
-            punct = self.punct
-        if self.cut_all is not None:
-            cut_all = self.cut_all
-        if self.HMM is not None:
-            HMM = self.HMM
+        if punct is not None:
+            self.punct = punct
+        if cut_all is not None:
+            self.cut_all = cut_all
+        if HMM is not None:
+            self.HMM = HMM
         tokens = self.nltk_tokenizer.lcut(
             sentence=sentence,
-            punct=punct,
+            punct=self.punct,
         )
         output_tokens = []
         for token in tokens:
@@ -51,9 +59,8 @@ class NltkCustomJiebaTokenizer(BaseTokenizer):
                 output_tokens.append(
                     self.custom_jieba_tokenizer.lcut(
                         sentence=token,
-                        extra_words=extra_words,
-                        cut_all=cut_all,
-                        HMM=HMM,
+                        cut_all=self.cut_all,
+                        HMM=self.HMM,
                     ),
                 )
             else:
@@ -86,7 +93,7 @@ class NltkCustomJiebaTokenizer(BaseTokenizer):
                     extra_words=extra_words,
                     cut_all=cut_all,
                     HMM=HMM,
-                    num_jobs=1,
+                    num_jobs=num_jobs,
                 ),
                 sentences,
             )
