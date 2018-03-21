@@ -12,7 +12,8 @@ class ChineseCharTokenizer(BaseTokenizer):
         reg_pattern = RESERVED_TOKENS + \
             ["[0-9]+\.[0-9]+"] + \
             ["[a-zA-Z]+"] + \
-            ["[0-9]+"]
+            ["[0-9]+"] + \
+            ["\.\.\."]
 
         self.prog = re.compile(
             r"{}".format("|".join(reg_pattern)),

@@ -26,6 +26,7 @@ class ChineseCharTokenizerTestCase(TestCase):
              ["I", " ", "want", " ", "_12int_", " ", "cup", " ", "of", " ", "bubble", " ", "tea"]),
             ("薄餡的手機號碼是0800-000-123",
              ["薄", "餡", "的", "手", "機", "號", "碼", "是", "0800", "-", "000", "-", "123"]),
+            ("邊...邊緣人", ["邊", "...", "邊", "緣", "人"]),
         ]
         for test_case in test_cases:
             with self.subTest(test_case=test_case):
