@@ -3,7 +3,7 @@ import functools
 import re
 
 from .base_tokenizer import BaseTokenizer
-from nlu.tokenizers import RESERVED_TOKENS
+from . import RESERVED_TOKENS
 
 
 class ChineseCharTokenizer(BaseTokenizer):
