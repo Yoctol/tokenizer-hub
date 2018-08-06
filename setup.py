@@ -18,6 +18,7 @@ setup(
     name="tokenizer",
     version=about["__version__"],
     description="Yoctol Natural Language Tokenizer",
+    url="https://github.com/Yoctol/tokenizer",
     license="MIT",
     author="Solumilken",
     packages=find_packages(),

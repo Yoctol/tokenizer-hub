@@ -12,3 +12,6 @@ purewords = {editable = true, git = "git@github.com:Yoctol/purewords.git"}
 [dev-packages]
 tqdm = "*"
 ipdb = "*"
+
+[requires]
+python_version = "3.5"

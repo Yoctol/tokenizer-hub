@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3220401ad2927ec88bc16629f6f8af19d23b5aee14decc837854a53cb7e67d43"
+            "sha256": "a7e0fd2163441bdbc8b6f5a5f1741806c06ff33389d8662eb9089b5235d40362"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -17,7 +17,9 @@
             "sys_platform": "linux"
         },
         "pipfile-spec": 6,
-        "requires": {},
+        "requires": {
+            "python_version": "3.5"
+        },
         "sources": [
             {
                 "name": "pypi",
@@ -53,7 +55,8 @@
         },
         "purewords": {
             "editable": true,
-            "git": "git@github.com:Yoctol/purewords.git"
+            "git": "git@github.com:Yoctol/purewords.git",
+            "ref": "53eb3e10d6f58200657c96614b7c4d1a6bebaa65"
         },
         "pycodestyle": {
             "hashes": [
