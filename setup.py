@@ -11,14 +11,14 @@ except IOError:
     long_description = ""
 
 about = {}
-with open(os.path.join(here, "tokenizer", "__version__.py")) as f:
+with open(os.path.join(here, "tokenizer_hub", "__version__.py")) as f:
     exec(f.read(), about)
 
 setup(
-    name="tokenizer",
+    name="tokenizer-hub",
     version=about["__version__"],
     description="Yoctol Natural Language Tokenizer",
-    url="https://github.com/Yoctol/tokenizer",
+    url="https://github.com/Yoctol/tokenizer-hub",
     license="MIT",
     author="Solumilken",
     packages=find_packages(),
@@ -30,5 +30,4 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
     ],
-    include_package_data=True,
 )
