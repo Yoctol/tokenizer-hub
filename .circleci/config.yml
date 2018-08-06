@@ -16,18 +16,18 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - yoctol-tokenizer-20180803-{{ checksum "Pipfile.lock" }}
-            - yoctol-tokenizer-20180803
+            - tokenizer-cache-20180806-{{ checksum "Pipfile.lock" }}
+            - tokenizer-cache-20180806
       - run:
           name: Install pipenv
-          command: pip install pipenv
+          command: pip install pipenv==v2018.05.18
       - run:
           name: Install dependencies
           command: |
             pipenv run pip install -U Cython
             pipenv install --dev
       - save_cache:
-          key:  yoctol-tokenizer-20180803-{{ checksum "Pipfile.lock" }}
+          key:  tokenizer-cache-20180806-{{ checksum "Pipfile.lock" }}
           paths:
             - .venv
       - persist_to_workspace:
@@ -41,8 +41,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install pipenv
+          command: pip install pipenv
+      - run:
           name: Flake8
-          command: python -m flake8 .
+          command: pipenv run python -m flake8 .
   test:
     <<: *docker_default
     steps:
@@ -50,8 +53,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Unit Test
-          command: python -m unittest
+          name: Install pipenv
+          command: pip install pipenv
+      - run:
+          name: Unit Tests
+          command: pipenv run python -m unittest
 
 workflows:
   version: 2
