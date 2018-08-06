@@ -1,5 +1,6 @@
 from itertools import permutations
 
+
 int_with_digits = ["_{}int_".format(num) for num in range(1, 13)]
 float_with_digits = [
     "_{}float{}_".format(pair[0], pair[1]) for pair in list(
