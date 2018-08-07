@@ -4,14 +4,17 @@ name = "pypi"
 url = "https://pypi.python.org/simple"
 
 [packages]
+
 jieba = "*"
 nltk = "*"
-purewords = {editable = true, git = "git@github.com:Yoctol/purewords.git"}
+purewords = "*"
 
 [dev-packages]
+
 tqdm = "*"
 ipdb = "*"
 "flake8" = "*"
 
 [requires]
+
 python_version = "3.5"

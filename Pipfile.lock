@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2d6c8bc5952d8f90d667cebd41775e0924daca5c7db3bf71be24a7b7cd795746"
+            "sha256": "ebe330ba57acca9e772975b9d1d5cdd76dad1534d4f42a73bbbe27fbf244897b"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -35,14 +35,24 @@
             ],
             "version": "==0.39"
         },
+        "joblib": {
+            "hashes": [
+                "sha256:2a596c8db2b828f8ddfd78041b9b78f75c32413322499835585840ad6a2e01f3",
+                "sha256:e9f04885cf11704669f3a731ea6ac00bbc7dea16137aa4394ef7c272cdb9d008"
+            ],
+            "version": "==0.12.2"
+        },
         "nltk": {
             "hashes": [],
             "version": "==3.3.0"
         },
         "purewords": {
-            "editable": true,
-            "git": "git@github.com:Yoctol/purewords.git",
-            "ref": "53eb3e10d6f58200657c96614b7c4d1a6bebaa65"
+            "hashes": [
+                "sha256:49309c72076a9bb1629c12f3e844c6e4430579798342d0bbb5f5e7367bf00961",
+                "sha256:ff7f32cc88aa33e3304ed043c33864101d4f98b5ac5a8fa3607fbd6b42711d8c",
+                "sha256:b0c19ed7d744c3a2bfce6bd8f1350e562c83bb6c740705490c9cac7c5271a864"
+            ],
+            "version": "==0.1.1"
         },
         "six": {
             "hashes": [
