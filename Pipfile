@@ -5,13 +5,13 @@ url = "https://pypi.python.org/simple"
 
 [packages]
 jieba = "*"
-"flake8" = "*"
 nltk = "*"
 purewords = {editable = true, git = "git@github.com:Yoctol/purewords.git"}
 
 [dev-packages]
 tqdm = "*"
 ipdb = "*"
+"flake8" = "*"
 
 [requires]
 python_version = "3.5"
