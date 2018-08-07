@@ -23,7 +23,11 @@ setup(
     author="Solumilken",
     packages=find_packages(),
     python_requires='>=3.5',
-    install_requires=[],
+    install_requires=[
+        'jieba==0.39',
+        'nltk==3.3.0',
+        'purewords==0.1.1',
+    ],
     long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
