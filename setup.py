@@ -25,7 +25,7 @@ setup(
     python_requires='>=3.5',
     install_requires=[
         'jieba==0.39',
-        'nltk==3.3.0',
+        'nltk==3.4.5',
         'purewords==0.1.1',
     ],
     long_description=long_description,
